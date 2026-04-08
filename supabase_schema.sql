@@ -38,6 +38,16 @@ ALTER TABLE escalacoes ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Public profiles are viewable by everyone." ON profiles FOR SELECT USING (true);
 CREATE POLICY "Users can update own profile." ON profiles FOR UPDATE USING (auth.uid() = id);
 CREATE POLICY "Users can insert their own profile." ON profiles FOR INSERT WITH CHECK (auth.uid() = id);
+CREATE POLICY "Admins can update any profile." ON profiles FOR UPDATE USING (
+  EXISTS (
+    SELECT 1 FROM profiles WHERE id = auth.uid() AND role = 'admin'
+  )
+);
+CREATE POLICY "Admins can delete any profile." ON profiles FOR DELETE USING (
+  EXISTS (
+    SELECT 1 FROM profiles WHERE id = auth.uid() AND role = 'admin'
+  )
+);
 
 -- Funcao para lidar com a criacao de novos usuarios automaticamente
 CREATE OR REPLACE FUNCTION public.handle_new_user()
