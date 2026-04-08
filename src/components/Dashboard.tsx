@@ -37,16 +37,16 @@ export default function Dashboard({ user, onRefreshUser }: DashboardProps) {
   const handleSimulateRound = async () => {
     setSimulating(true);
     try {
-      // In a real app, this should be a server-side function.
-      // For now, we'll simulate locally by updating players and then users.
+      // Em um app real, isso deveria ser uma função no servidor (backend).
+      // Por enquanto, vamos simular localmente atualizando os jogadores e depois os usuários.
       
-      // 1. Get all players
+      // 1. Buscar todos os jogadores
       const { data: players, error: pError } = await supabase.from('jogadores').select('*');
       if (pError) throw pError;
 
-      // 2. Update each player with a random score
+      // 2. Atualizar cada jogador com uma pontuação aleatória
       const updates = players.map((p: any) => {
-        const roundPoints = (Math.random() * 15) - 2; // -2 to 13 points
+        const roundPoints = (Math.random() * 15) - 2; // -2 a 13 pontos
         return supabase
           .from('jogadores')
           .update({ 
@@ -57,9 +57,9 @@ export default function Dashboard({ user, onRefreshUser }: DashboardProps) {
       });
       await Promise.all(updates);
 
-      // 3. Update users' total scores based on their lineups
-      // This is complex to do client-side for all users.
-      // We'll just update the current user for now.
+      // 3. Atualizar a pontuação total dos usuários com base em suas escalações
+      // Isso é complexo de fazer no lado do cliente para todos os usuários.
+      // Vamos atualizar apenas o usuário atual por enquanto.
       const { data: { user: authUser } } = await supabase.auth.getUser();
       if (authUser) {
         const { data: lineup } = await supabase

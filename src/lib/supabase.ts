@@ -1,6 +1,6 @@
 import { createClient } from '@supabase/supabase-js'
 
-// Vite requires VITE_ prefix, but we'll check common fallbacks
+// O Vite requer o prefixo VITE_, mas vamos verificar fallbacks comuns
 const supabaseUrl = (
   import.meta.env.VITE_SUPABASE_URL || 
   import.meta.env.NEXT_PUBLIC_SUPABASE_URL ||
@@ -22,7 +22,7 @@ if (!supabaseAnonKey) {
   console.error('CRITICAL: VITE_SUPABASE_ANON_KEY is missing. Please set it in the Settings menu.')
 }
 
-// Only create client if URL is valid to avoid "Invalid supabaseUrl" error
+// Só criar o cliente se a URL for válida para evitar erro "Invalid supabaseUrl"
 const isValidUrl = (url: string) => {
   try {
     return url && (url.startsWith('http://') || url.startsWith('https://'));
@@ -33,4 +33,4 @@ const isValidUrl = (url: string) => {
 
 export const supabase = isValidUrl(supabaseUrl)
   ? createClient(supabaseUrl, supabaseAnonKey || '') 
-  : (null as any); // Fallback to null to prevent crash on startup
+  : (null as any); // Fallback para null para evitar crash na inicialização

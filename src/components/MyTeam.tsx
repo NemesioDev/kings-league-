@@ -54,7 +54,7 @@ export default function MyTeam({ user, onUpdateBalance }: MyTeamProps) {
       const { data: { user: authUser } } = await supabase.auth.getUser();
       if (!authUser) throw new Error('Usuário não autenticado');
 
-      // 1. Delete from escalacoes
+      // 1. Remover da tabela de escalações
       const { error: deleteError } = await supabase
         .from('escalacoes')
         .delete()
@@ -63,7 +63,7 @@ export default function MyTeam({ user, onUpdateBalance }: MyTeamProps) {
 
       if (deleteError) throw deleteError;
 
-      // 2. Update balance
+      // 2. Atualizar saldo do usuário
       const novoSaldo = user.saldo + player.preco;
       const { error: updateError } = await supabase
         .from('profiles')

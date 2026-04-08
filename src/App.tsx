@@ -19,7 +19,7 @@ export default function App() {
       return;
     }
 
-    // Check active session
+    // Verificar sessão ativa
     supabase.auth.getSession().then(({ data: { session } }: { data: { session: any } }) => {
       if (session) {
         setToken(session.access_token);
@@ -29,7 +29,7 @@ export default function App() {
       }
     });
 
-    // Listen for auth changes
+    // Ouvir mudanças de autenticação
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event: any, session: any) => {
       if (session) {
         setToken(session.access_token);

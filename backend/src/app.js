@@ -46,13 +46,13 @@ app.use(cors());
 app.use(morgan('dev', { stream: logStream }));
 app.use(express.json());
 
-// Placeholder for Vite middleware
+// Placeholder para middleware do Vite
 let viteMiddleware = (req, res, next) => {
     if (req.url.startsWith('/api')) return next();
     res.send('<html><body><h1>Iniciando o Cartola Kings League...</h1><script>setTimeout(() => window.location.reload(), 2000)</script></body></html>');
 };
 
-// Routes
+// Rotas
 const authRoutes = require('../routes/auth');
 const escalacaoRoutes = require('../routes/escalacao');
 const jwt = require('jsonwebtoken');
@@ -81,7 +81,7 @@ const isAdmin = async (req, res, next) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/escalacao', escalacaoRoutes);
 
-// Admin Routes
+// Rotas de Admin
 app.get('/api/admin/usuarios', isAdmin, async (req, res) => {
     try {
         const usuarios = await Usuario.findAll({
@@ -166,14 +166,14 @@ app.get('/api/highlights', async (req, res) => {
 app.post('/api/simulate-round', isAdmin, async (req, res) => {
     try {
         log('Iniciando simulação de rodada...');
-        // 1. Randomly update points for all players
+        // 1. Atualizar aleatoriamente os pontos de todos os jogadores
         const jogadores = await Jogador.findAll();
         for (const jogador of jogadores) {
-            const randomPoints = (Math.random() * 15 - 2).toFixed(1); // Points between -2 and 13
+            const randomPoints = (Math.random() * 15 - 2).toFixed(1); // Pontos entre -2 e 13
             await jogador.update({ pontoGeral: parseFloat(randomPoints) });
         }
 
-        // 2. Update user scores based on their lineups
+        // 2. Atualizar a pontuação dos usuários com base em suas escalações
         const usuarios = await Usuario.findAll();
         for (const usuario of usuarios) {
             const escalacao = await Escalacao.findAll({
@@ -213,7 +213,7 @@ app.use((req, res, next) => {
     viteMiddleware(req, res, next);
 });
 
-// Vite Integration
+// Integração com Vite
 async function setupVite() {
     log('Iniciando configuração do Vite...');
     if (process.env.NODE_ENV !== 'production') {
@@ -244,7 +244,7 @@ async function startServer() {
         log('Servidor do Cartola rodando na porta 3000');
     });
 
-    // Start Vite setup in background
+    // Iniciar setup do Vite em background
     setupVite();
 
     server.on('error', (err) => {
@@ -256,7 +256,7 @@ async function startServer() {
         await db.sync({ alter: true });
         log('Conexão com o banco de dados estabelecida com sucesso.');
         
-        // Seed data if empty
+        // Inserir dados iniciais se estiver vazio
         const count = await Jogador.count();
         if (count === 0) {
             await Jogador.bulkCreate([

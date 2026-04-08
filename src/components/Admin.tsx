@@ -112,11 +112,11 @@ export default function Admin() {
         
         setLoading(true);
         try {
-            // 1. Get all players
+            // 1. Buscar todos os jogadores
             const { data: players, error: pError } = await supabase.from('jogadores').select('*');
             if (pError) throw pError;
 
-            // 2. Update each player with a random score
+            // 2. Atualizar cada jogador com uma pontuação aleatória
             const updates = players.map((p: any) => {
                 const roundPoints = (Math.random() * 15) - 2;
                 return supabase
@@ -129,7 +129,7 @@ export default function Admin() {
             });
             await Promise.all(updates);
 
-            // 3. Update all users' total scores
+            // 3. Atualizar a pontuação total de todos os usuários
             const { data: profiles } = await supabase.from('profiles').select('id');
             if (profiles) {
                 const profileUpdates = profiles.map(async (profile: any) => {

@@ -1,4 +1,4 @@
--- Create profiles table
+-- Criar tabela de perfis
 CREATE TABLE profiles (
   id UUID REFERENCES auth.users ON DELETE CASCADE PRIMARY KEY,
   nome TEXT,
@@ -9,7 +9,7 @@ CREATE TABLE profiles (
   created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW())
 );
 
--- Create jogadores table
+-- Criar tabela de jogadores
 CREATE TABLE jogadores (
   id SERIAL PRIMARY KEY,
   nome TEXT NOT NULL,
@@ -20,7 +20,7 @@ CREATE TABLE jogadores (
   created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW())
 );
 
--- Create escalacoes table
+-- Criar tabela de escalacoes
 CREATE TABLE escalacoes (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   usuario_id UUID REFERENCES auth.users ON DELETE CASCADE,
@@ -29,17 +29,17 @@ CREATE TABLE escalacoes (
   UNIQUE(usuario_id, jogador_id)
 );
 
--- Enable RLS
+-- Habilitar RLS
 ALTER TABLE profiles ENABLE ROW LEVEL SECURITY;
 ALTER TABLE jogadores ENABLE ROW LEVEL SECURITY;
 ALTER TABLE escalacoes ENABLE ROW LEVEL SECURITY;
 
--- Profiles policies
+-- Politicas para profiles
 CREATE POLICY "Public profiles are viewable by everyone." ON profiles FOR SELECT USING (true);
 CREATE POLICY "Users can update own profile." ON profiles FOR UPDATE USING (auth.uid() = id);
 CREATE POLICY "Users can insert their own profile." ON profiles FOR INSERT WITH CHECK (auth.uid() = id);
 
--- Function to handle new user creation automatically
+-- Funcao para lidar com a criacao de novos usuarios automaticamente
 CREATE OR REPLACE FUNCTION public.handle_new_user()
 RETURNS trigger AS $$
 BEGIN
@@ -56,13 +56,13 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
--- Trigger to call the function after a user signs up
+-- Gatilho para chamar a funcao apos um usuario se cadastrar
 DROP TRIGGER IF EXISTS on_auth_user_created ON auth.users;
 CREATE TRIGGER on_auth_user_created
   AFTER INSERT ON auth.users
   FOR EACH ROW EXECUTE PROCEDURE public.handle_new_user();
 
--- Jogadores policies
+-- Politicas para jogadores
 CREATE POLICY "Jogadores are viewable by everyone." ON jogadores FOR SELECT USING (true);
 CREATE POLICY "Only admins can modify jogadores." ON jogadores FOR ALL USING (
   EXISTS (
@@ -71,12 +71,12 @@ CREATE POLICY "Only admins can modify jogadores." ON jogadores FOR ALL USING (
   )
 );
 
--- Escalacoes policies
+-- Politicas para escalacoes
 CREATE POLICY "Users can view own escalacoes." ON escalacoes FOR SELECT USING (auth.uid() = usuario_id);
 CREATE POLICY "Users can insert own escalacoes." ON escalacoes FOR INSERT WITH CHECK (auth.uid() = usuario_id);
 CREATE POLICY "Users can delete own escalacoes." ON escalacoes FOR DELETE USING (auth.uid() = usuario_id);
 
--- Insert some initial players
+-- Inserir alguns jogadores iniciais
 INSERT INTO jogadores (nome, posicao, time, preco, pontogeral) VALUES
 ('Neymar Jr', 'ATA', 'Al-Hilal', 25.0, 0),
 ('Lionel Messi', 'ATA', 'Inter Miami', 22.0, 0),

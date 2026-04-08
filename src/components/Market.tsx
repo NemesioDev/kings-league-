@@ -53,7 +53,7 @@ export default function Market({ onUpdateBalance }: MarketProps) {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) throw new Error('Usuário não autenticado');
 
-      // 1. Get profile
+      // 1. Buscar perfil do usuário
       const { data: profile, error: profileError } = await supabase
         .from('profiles')
         .select('saldo')
@@ -63,7 +63,7 @@ export default function Market({ onUpdateBalance }: MarketProps) {
       if (profileError) throw profileError;
       if (profile.saldo < player.preco) throw new Error('Saldo insuficiente');
 
-      // 2. Check if already in team
+      // 2. Verificar se já está no time
       const { data: existing } = await supabase
         .from('escalacoes')
         .select('*')
@@ -73,14 +73,14 @@ export default function Market({ onUpdateBalance }: MarketProps) {
 
       if (existing) throw new Error('Jogador já está no seu time');
 
-      // 3. Insert into escalacoes
+      // 3. Inserir na tabela de escalações
       const { error: insertError } = await supabase
         .from('escalacoes')
         .insert([{ usuario_id: user.id, jogador_id: player.id }]);
 
       if (insertError) throw insertError;
 
-      // 4. Update balance
+      // 4. Atualizar saldo
       const novoSaldo = profile.saldo - player.preco;
       const { error: updateError } = await supabase
         .from('profiles')

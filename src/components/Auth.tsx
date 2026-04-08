@@ -28,7 +28,7 @@ export default function Auth({ onLogin }: AuthProps) {
 
         if (authError) throw authError;
 
-        // Fetch profile using maybeSingle to avoid PGRST116 error if it doesn't exist
+        // Buscar perfil usando maybeSingle para evitar erro PGRST116 se não existir
         let { data: profile, error: profileError } = await supabase
           .from('profiles')
           .select('*')
@@ -37,7 +37,7 @@ export default function Auth({ onLogin }: AuthProps) {
 
         if (profileError) throw profileError;
 
-        // If profile doesn't exist (e.g. created before trigger was added), create it now
+        // Se o perfil não existir (ex: criado antes do gatilho ser adicionado), criar agora
         if (!profile) {
           const role = email === 'nemesioangelooliveiradasilva@gmail.com' ? 'admin' : 'user';
           const { data: newProfile, error: insertError } = await supabase
@@ -72,7 +72,7 @@ export default function Auth({ onLogin }: AuthProps) {
         if (authError) throw authError;
         if (!data.user) throw new Error('Erro ao criar usuário');
 
-        // Fetch the profile that was automatically created by the database trigger
+        // Buscar o perfil que foi criado automaticamente pelo gatilho do banco de dados
         let { data: profile, error: profileError } = await supabase
           .from('profiles')
           .select('*')
@@ -81,7 +81,7 @@ export default function Auth({ onLogin }: AuthProps) {
 
         if (profileError) throw profileError;
 
-        // Fallback just in case the trigger failed
+        // Fallback caso o gatilho tenha falhado
         if (!profile) {
           const role = email === 'nemesioangelooliveiradasilva@gmail.com' ? 'admin' : 'user';
           const { data: newProfile, error: insertError } = await supabase
