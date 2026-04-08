@@ -1,0 +1,53 @@
+[2026-03-27T16:35:28.306Z] Iniciando servidor Express...
+[2026-03-27T16:35:28.740Z] Iniciando configuração do Vite...
+[2026-03-27T16:35:28.744Z] Sincronizando banco de dados...
+[2026-03-27T16:35:28.755Z] Servidor do Cartola rodando na porta 3000
+[2026-03-27T16:35:28.978Z] Conexão com o banco de dados estabelecida com sucesso.
+[2026-03-27T16:35:29.246Z] Vite middleware configurado com sucesso.
+[2026-03-27T16:35:42.857Z] Iniciando servidor Express...
+[2026-03-27T16:35:42.863Z] Current working directory: /app/applet
+[2026-03-27T16:35:43.281Z] Iniciando configuração do Vite...
+[2026-03-27T16:35:43.285Z] Sincronizando banco de dados...
+[2026-03-27T16:35:43.297Z] Servidor do Cartola rodando na porta 3000
+[2026-03-27T16:35:43.503Z] Conexão com o banco de dados estabelecida com sucesso.
+[2026-03-27T16:35:43.773Z] Vite middleware configurado com sucesso.
+[2026-03-27T16:36:10.464Z] [LOG] Iniciando servidor Express...
+[2026-03-27T16:36:10.472Z] [LOG] Current working directory: /app/applet
+[2026-03-27T16:36:10.904Z] [LOG] Iniciando configuração do Vite...
+[2026-03-27T16:36:10.908Z] [LOG] Sincronizando banco de dados...
+[2026-03-27T16:36:10.923Z] [LOG] Servidor do Cartola rodando na porta 3000
+[2026-03-27T16:36:11.177Z] [LOG] Conexão com o banco de dados estabelecida com sucesso.
+[2026-03-27T16:36:11.476Z] [LOG] Vite middleware configurado com sucesso.
+[0mPOST /api/auth/register [0m-[0m - ms - -[0m
+[0mPOST /api/auth/register [33m408[0m 306265.568 ms - -[0m
+[2026-03-27T16:41:40.944Z] [ERROR] BadRequestError: request aborted
+    at IncomingMessage.onAborted (/app/applet/node_modules/raw-body/index.js:245:10)
+    at IncomingMessage.emit (node:events:519:28)
+    at IncomingMessage._destroy (node:_http_incoming:221:10)
+    at _destroy (node:internal/streams/destroy:122:10)
+    at IncomingMessage.destroy (node:internal/streams/destroy:84:5)
+    at abortIncoming (node:_http_server:838:9)
+    at socketOnClose (node:_http_server:832:3)
+    at Socket.emit (node:events:531:35)
+    at TCP.<anonymous> (node:net:346:12)
+[2026-03-27T16:41:45.204Z] [LOG] Iniciando servidor Express...
+[2026-03-27T16:41:45.210Z] [LOG] Current working directory: /app/applet
+[2026-03-27T16:41:45.716Z] [LOG] Iniciando configuração do Vite...
+[2026-03-27T16:41:45.720Z] [LOG] Sincronizando banco de dados...
+[2026-03-27T16:41:45.736Z] [LOG] Servidor do Cartola rodando na porta 3000
+[2026-03-27T16:41:45.961Z] [LOG] Conexão com o banco de dados estabelecida com sucesso.
+[2026-03-27T16:41:46.242Z] [LOG] Vite middleware configurado com sucesso.
+[2026-03-27T16:41:50.327Z] [LOG] Recebida requisição de registro: test@example.com
+[2026-03-27T16:41:50.503Z] [LOG] Usuário registrado com sucesso: test@example.com
+[0mPOST /api/auth/register [32m200[0m 192.817 ms - 226[0m
+[2026-03-27T16:42:20.256Z] [LOG] Iniciando servidor Express...
+[2026-03-27T16:42:20.274Z] [LOG] Current working directory: /app/applet
+[2026-03-27T16:42:20.741Z] [LOG] Iniciando configuração do Vite...
+[2026-03-27T16:42:20.746Z] [LOG] Sincronizando banco de dados...
+[2026-03-27T16:42:20.760Z] [LOG] Servidor do Cartola rodando na porta 3000
+[2026-03-27T16:42:21.024Z] [LOG] Conexão com o banco de dados estabelecida com sucesso.
+[2026-03-27T16:42:21.339Z] [LOG] Vite middleware configurado com sucesso.
+[2026-03-27T16:42:30.994Z] [LOG] Recebida requisição de registro: {"nome":"Another User","email":"another@example.com","senha":"password123"}
+[2026-03-27T16:42:31.001Z] [LOG] Criando usuário no banco de dados...
+[2026-03-27T16:42:31.132Z] [LOG] Usuário registrado com sucesso ID: 2
+[0mPOST /api/auth/register [32m200[0m 153.813 ms - 251[0m

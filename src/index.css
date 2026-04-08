@@ -1,0 +1,96 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap');
+
+:root {
+  --bg: #050505;
+  --surface: #111111;
+  --accent: #F27D26;
+  --ink: #FFFFFF;
+  --muted: #888888;
+  --f-display: 'Anton', sans-serif;
+  --f-sans: 'Inter', sans-serif;
+  --f-mono: 'JetBrains Mono', monospace;
+}
+
+@theme {
+  --font-display: var(--f-display);
+  --font-sans: var(--f-sans);
+  --font-mono: var(--f-mono);
+  --color-accent: var(--accent);
+  --color-surface: var(--surface);
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--ink);
+  font-family: var(--f-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--surface);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+.data-row {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr 0.5fr;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.data-row:hover {
+  background: rgba(255, 255, 255, 0.03);
+  transform: translateX(4px);
+}
+
+.col-header {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.data-value {
+  font-family: var(--f-mono);
+  letter-spacing: -0.02em;
+}
+
+@utility btn-primary {
+  @apply px-6 py-3 bg-accent text-black font-display text-lg uppercase tracking-wider hover:scale-105 active:scale-95 transition-all duration-200 disabled:opacity-50 disabled:scale-100;
+}
+
+@utility card {
+  @apply bg-surface border border-white/5 p-6 rounded-xl shadow-2xl;
+}
+
+@utility stat-card {
+  @apply card flex flex-col justify-between overflow-hidden relative after:content-[''] after:absolute after:top-0 after:right-0 after:w-32 after:h-32 after:bg-accent/5 after:blur-3xl after:rounded-full after:-mr-16 after:-mt-16 after:pointer-events-none;
+}
+
+@utility input-field {
+  @apply w-full bg-black/50 border border-white/10 px-4 py-3 rounded-lg font-sans text-sm focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 transition-all;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slide-in {
+  animation: slideIn 0.4s ease-out forwards;
+}
